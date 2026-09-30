@@ -1,0 +1,166 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#5b2a4e"><title>ShopTrack</title>
+<style>
+:root{--bg:#f4f5f8;--cd:#fff;--tx:#191c26;--mu:#6b7080;--ac:#6b2d5c;--al:#f1e6ee;--ok:#16794f;--wa:#a86b00;--er:#b93434;--bd:#e4e6ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#12141b;--cd:#1c1f29;--tx:#eceef4;--mu:#9299ab;--ac:#d68bc0;--al:#2c2030;--ok:#4cc38a;--wa:#e0a93b;--er:#f07777;--bd:#2b2f3c}}
+:root[data-theme=dark]{--bg:#12141b;--cd:#1c1f29;--tx:#eceef4;--mu:#9299ab;--ac:#d68bc0;--al:#2c2030;--ok:#4cc38a;--wa:#e0a93b;--er:#f07777;--bd:#2b2f3c}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:480px;margin:0 auto;padding:16px 16px 96px}
+h1{font-size:24px;margin:4px 0 14px}h2{font-size:16px;margin:20px 0 8px}small{color:var(--mu)}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:14px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.c b{display:block;font-size:22px;margin-top:2px}.big b{font-size:30px}
+.r{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.row{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.ok{color:var(--ok)}.wa{color:var(--wa)}.er{color:var(--er)}
+button,input,select{font:inherit;color:inherit}
+button{border:0;border-radius:14px;padding:14px 16px;background:var(--ac);color:#fff;font-weight:600;cursor:pointer}
+button.s{background:var(--al);color:var(--ac)}button.sm{padding:8px 12px;font-size:14px;border-radius:10px}button:disabled{opacity:.5}
+.w{width:100%}input,select{width:100%;padding:13px;border:1px solid var(--bd);border-radius:12px;background:var(--cd);margin-bottom:8px}
+.ch{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px}.ch button{white-space:nowrap;padding:8px 14px;background:var(--cd);color:var(--tx);border:1px solid var(--bd);font-weight:500}.ch button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--cd);border-top:1px solid var(--bd);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px)}
+.nav div{display:flex;width:100%;max-width:480px}.nav button{flex:1;background:none;color:var(--mu);border-radius:0;padding:12px 2px;font-size:13px}.nav button.on{color:var(--ac)}.nav i{display:block;font-style:normal;font-size:20px}
+.bd{display:inline-block;background:var(--er);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;margin-left:2px}
+.m{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:9}
+.m>div{background:var(--bg);width:100%;max-width:480px;max-height:88%;overflow:auto;border-radius:20px 20px 0 0;padding:18px}
+.q{display:flex;align-items:center;gap:10px}.q button{padding:6px 14px;font-size:20px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ac);margin-right:6px}
+
+#app{padding-bottom:112px}body{font-size:17px;font-weight:600}
+h1{font-size:34px;font-weight:800;letter-spacing:-.5px}h2{font-size:19px;font-weight:800}
+.c{border-radius:22px;padding:18px}.c b{font-size:30px;font-weight:800}.big b{font-size:38px}
+.g>.c:first-child{background:linear-gradient(135deg,#6b2d5c,#c2417c);color:#fff;border:0}.g>.c:first-child small{color:#ffe3f1}.g>.c:first-child b{color:#fff}
+.row{border-radius:18px;padding:15px 16px}.row b{font-weight:800}
+button{font-weight:800;padding:16px 18px;border-radius:16px;transition:transform .12s;box-shadow:0 4px 14px rgba(107,45,92,.25)}button:active{transform:scale(.95)}
+button.s,.ch button,.nav button,button.sm.s{box-shadow:none}.sm{padding:10px 14px}
+.nav button{font-weight:800}.nav i{font-size:25px}.nav button.on i{animation:bnc .5s}
+#app.a .c,#app.a .row{animation:up .45s both}#app.a>*:nth-child(2) .c:nth-child(n+2),#app.a .g>.c:nth-child(2){animation-delay:.06s}#app.a .g>.c:nth-child(3){animation-delay:.12s}#app.a .g>.c:nth-child(4){animation-delay:.18s}
+.m>div{animation:sl .3s}.pop{text-align:center;animation:pp .6s}
+.toast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;transform:translateX(-50%);width:92%;max-width:440px;background:#1b1230;color:#fff;padding:14px 18px;border-radius:16px;z-index:99;font-weight:700;animation:dn .35s;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes bnc{50%{transform:translateY(-7px) scale(1.2)}}@keyframes sl{from{transform:translateY(50px);opacity:0}}@keyframes dn{from{transform:translate(-50%,-40px);opacity:0}}@keyframes pp{from{transform:scale(.8);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div><script>
+const K='shoptrack1';let S,role=null,tab='',cart={},pay='cash',q='',cat='All',rng='today',busy=false,rid=null;
+const uid=()=>Math.random().toString(36).slice(2,9),$=id=>document.getElementById(id);
+const g=c=>'GH₵'+(c/100).toLocaleString('en',{minimumFractionDigits:c%100?2:0,maximumFractionDigits:2});
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const tm=t=>new Date(t).toLocaleTimeString('en-GB',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Africa/Accra'});
+const PM={cash:'Cash',mtn_momo:'MTN MoMo',telecel_cash:'Telecel Cash',airteltigo_money:'AirtelTigo Money',card:'Card',other:'Other'};
+
+S={p:[],sales:[],ex:[],nt:[],cr:[],cats:[],biz:''};let sb,ME=null,ready=false,tm_,iv,lastTab='';
+const CFG_URL='https://wedtzxuiljtiorpjdqve.supabase.co',CFG_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlZHR6eHVpbGp0aW9ycGpkcXZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3NTM2ODUsImV4cCI6MjEwNjMyOTY4NX0.NZZ48X5lCuXhCAfKNyxs0w0hqEI4BGn10bGu--rmwuM';
+function cfg(){let u=CFG_URL,k=CFG_KEY;if(u.startsWith('PASTE')){try{const c=JSON.parse(localStorage.getItem('st_cfg'));u=c.u;k=c.k}catch(e){}}return u&&k&&!u.startsWith('PASTE')?{u,k}:null}
+const c100=x=>Math.round(Number(x||0)*100),cap=x=>x.charAt(0).toUpperCase()+x.slice(1);
+const ALIAS={mtn:'mtn_momo',tel:'telecel_cash',atm:'airteltigo_money',oth:'other'};
+const EC=['restocking','rent','electricity','transport','salary','packaging','marketing','other'];
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),5000)}
+async function pull(){if(!ME)return;const o=ME.role=='owner';
+const[P,Ca,Sa,Pr,Cr]=await Promise.all([o?sb.from('products').select('*').eq('active',true).order('name'):sb.from('seller_products').select('*').order('name'),sb.from('categories').select('id,name'),sb.from('sales').select('*,sale_items(*)').order('created_at',{ascending:false}).limit(500),sb.from('profiles').select('id,full_name'),sb.from('correction_requests').select('*').order('created_at',{ascending:false}).limit(100)]);
+const[Ex,Nt]=o?await Promise.all([sb.from('expenses').select('*').order('created_at',{ascending:false}).limit(500),sb.from('notifications').select('*').order('created_at',{ascending:false}).limit(100)]):[{data:[]},{data:[]}];
+const e=[P,Ca,Sa,Pr,Cr,Ex,Nt].find(x=>x.error);if(e){toast('⚠️ '+e.error.message);return}
+const cn={},pn={},pf={};Ca.data.forEach(x=>cn[x.id]=x.name);Pr.data.forEach(x=>pf[x.id]=x.full_name);
+S={biz:S.biz,cats:Ca.data,
+p:P.data.map(x=>{pn[x.id]=x.name;return{id:x.id,n:x.name,c:cn[x.category_id]||'Other',cost:c100(x.cost_price),pr:c100(x.selling_price),st:x.stock,lo:x.low_stock_threshold||0}}),
+sales:Sa.data.map(x=>({id:x.id,t:+new Date(x.created_at),by:pf[x.seller_id]||'Seller',pm:x.payment_method,rev:c100(x.total_revenue),cost:c100(x.total_cost),v:x.status=='voided'?1:0,L:x.sale_items.map(i=>({id:i.product_id,n:pn[i.product_id]||'Item',q:i.quantity,pr:c100(i.selling_price),cost:c100(i.cost_price)}))})),
+ex:Ex.data.map(x=>({id:x.id,t:+new Date(x.created_at),cat:cap(x.category),a:c100(x.amount),d:x.description,pm:x.payment_method})),
+nt:Nt.data.map(x=>({id:x.id,ty:x.type,ti:x.title,b:x.body,t:+new Date(x.created_at),r:x.read?1:0})),
+cr:Cr.data.map(x=>({id:x.id,sid:x.sale_id,by:pf[x.requested_by]||'Seller',why:x.reason,s:x.status[0]}))}}
+async function boot(){const c=cfg();if(!c){R();return}sb=supabase.createClient(c.u,c.k);
+sb.auth.onAuthStateChange(ev=>{if(ev=='SIGNED_OUT'){ME=null;role=null;ready=false;R()}});
+const{data:{session}}=await sb.auth.getSession();if(session)await enter();else R()}
+async function enter(){ready=false;R();const{data:{user}}=await sb.auth.getUser();if(!user){R();return}
+const{data:pf,error}=await sb.from('profiles').select('*,businesses(name)').eq('id',user.id).single();
+if(error||!pf||!pf.active){await sb.auth.signOut();alert('This account is not set up for a shop yet. Ask the owner.');return}
+ME={id:user.id,role:pf.role,n:pf.full_name,b:pf.business_id};role=ME.role;S.biz=(pf.businesses&&pf.businesses.name)||'';tab=role=='owner'?'home':'sell';
+await pull();ready=true;R();live()}
+function live(){sb.getChannels().forEach(c=>sb.removeChannel(c));const ch=sb.channel('shop-'+ME.id);
+(role=='owner'?['notifications','sales','products','expenses','correction_requests']:['sales','correction_requests']).forEach(t=>ch.on('postgres_changes',{event:'*',schema:'public',table:t},p=>{
+if(t=='notifications'&&p.eventType=='INSERT')toast(p.new.title+' · '+p.new.body);clearTimeout(tm_);tm_=setTimeout(async()=>{await pull();R()},400)}));
+ch.subscribe();clearInterval(iv);iv=setInterval(async()=>{await pull();R()},30000)}
+function rg(r){const d=new Date();d.setHours(0,0,0,0);let a=+d,b=a+864e5*2;if(r=='yesterday'){b=a;a-=864e5}else if(r=='week')a-=((d.getDay()+6)%7)*864e5;else if(r=='month')a=+new Date(d.getFullYear(),d.getMonth(),1);else if(r=='last'){a=+new Date(d.getFullYear(),d.getMonth()-1,1);b=+new Date(d.getFullYear(),d.getMonth(),1)}return[a,b]}
+function st(r,by){const[a,b]=rg(r),ss=S.sales.filter(s=>!s.v&&s.t>=a&&s.t<b&&(!by||s.by==by)),ee=S.ex.filter(e=>e.t>=a&&e.t<b);
+const o={n:ss.length,rev:0,cost:0,it:0,ex:ee.reduce((x,e)=>x+e.a,0),pm:{},pr:{},ss};for(const s of ss){o.rev+=s.rev;o.cost+=s.cost;o.pm[s.pm]=(o.pm[s.pm]||0)+s.rev;for(const l of s.L){o.it+=l.q;const p=o.pr[l.n]=o.pr[l.n]||{q:0,r:0,g:0};p.q+=l.q;p.r+=l.pr*l.q;p.g+=(l.pr-l.cost)*l.q}}
+o.gp=o.rev-o.cost;o.np=o.gp-o.ex;return o}
+const C=(l,v,c='')=>`<div class="c"><small>${l}</small><b class="${c}">${v}</b></div>`;
+const badge=p=>p.st==0?'<span class="er">🚨 Out of stock</span>':p.st<=p.lo?`<span class="wa">⚠️ ${p.st} left</span>`:`<span class="ok">${p.st} in stock</span>`;
+const saleRow=(s,o)=>`<div class="row" onclick="det('${s.id}')"><div class="r"><small>${tm(s.t)} · ${esc(s.by)}${s.v?' · voided':''}</small><b>${g(s.rev)}</b></div><div>${s.L.map(l=>l.q+' × '+esc(l.n)).join(', ')}</div>${o?`<small>Profit ${g(s.rev-s.cost)}</small>`:''}</div>`;
+function topList(o,k,f){const a=Object.entries(o.pr).sort((x,y)=>y[1][k]-x[1][k]).slice(0,3);return a.length?a.map(([n,p])=>`<div class="r row"><span>${esc(n)}</span><b>${f(p)}</b></div>`).join(''):'<small>Nothing sold in this period.</small>'}
+function modal(h){const m=document.createElement('div');m.className='m';m.onclick=e=>{if(e.target==m)m.remove()};m.innerHTML='<div>'+h+'</div>';document.body.appendChild(m);return m}
+function form(t,f,ok){const m=modal(`<h1>${t}</h1>`+f.map(x=>`<small>${x[1]}</small><input id="f_${x[0]}" type="${x[2]||'text'}" ${x[2]=='number'?'inputmode="decimal" step="any"':''} value="${esc(x[3]??'')}">`).join('')+'<button class="w" id="fs">Save</button>');
+$('fs').onclick=async()=>{$('fs').disabled=true;const v={};f.forEach(x=>v[x[0]]=$('f_'+x[0]).value.trim());const e=await ok(v);$('fs').disabled=false;if(e)alert(e);else{m.remove();R()}}}
+const mo=v=>Math.round(parseFloat(v)*100);
+function det(id){const s=S.sales.find(x=>x.id==id);modal(`<h1>Sale · ${g(s.rev)}</h1><small>${new Date(s.t).toLocaleString('en-GB',{timeZone:'Africa/Accra'})} · ${esc(s.by)} · ${PM[s.pm]}</small><h2></h2>`+s.L.map(l=>`<div class="r row"><span>${l.q} × ${esc(l.n)}</span><span>${g(l.pr*l.q)}${role=='owner'?' <small>cost '+g(l.cost*l.q)+'</small>':''}</span></div>`).join('')+(role=='owner'?`<div class="c"><small>Profit</small><b class="ok">${g(s.rev-s.cost)}</b></div>`:''))}
+/* ---------- login ---------- */
+function setup(){return`<h1 style="margin-top:50px">Connect Supabase</h1><small>Paste once. Find both in Supabase → Project Settings → API.</small><p></p><input id="cu" placeholder="Project URL (https://xxxx.supabase.co)"><input id="ck" placeholder="anon public key"><button class="w" onclick="saveCfg()">Save and continue</button>`}
+function saveCfg(){const u=$('cu').value.trim(),k=$('ck').value.trim();if(!u.startsWith('https://')||k.length<20){alert('Enter the project URL and the anon key.');return}try{localStorage.setItem('st_cfg',JSON.stringify({u,k}))}catch(e){}boot()}
+function login(){return`<div style="margin-top:56px" class="pop"><div style="font-size:60px">💄</div><h1>ShopTrack</h1><small>Sign in to your shop</small></div><p></p><input id="em" type="email" placeholder="Email" autocomplete="username"><input id="pw" type="password" placeholder="Password" autocomplete="current-password"><button class="w" id="lb" onclick="signIn()">Sign in</button>`}
+async function signIn(){const b=$('lb');b.disabled=true;const{error}=await sb.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value});if(error){alert(error.message);b.disabled=false;return}await enter()}
+async function out(){await sb.auth.signOut()}
+
+/* ---------- owner ---------- */
+function home(){const o=st('today'),lo=S.p.filter(p=>p.st<=p.lo),pc=S.cr.filter(c=>c.s=='p');
+return`<small>Good ${new Date().getHours()<12?'morning':new Date().getHours()<17?'afternoon':'evening'}</small><h1>Today</h1><div class="g">${C('Revenue',g(o.rev))}${C('Gross profit',g(o.gp),'ok')}${C('Expenses',g(o.ex))}${C('Net profit',g(o.np),o.np<0?'er':'ok')}${C('Transactions',o.n)}${C('Items sold',o.it)}</div>
+${pc.length?`<div class="row" style="margin-top:12px" onclick="tab='alerts';R()"><b>${pc.length} correction request${pc.length>1?'s':''} waiting</b><br><small>Tap to review</small></div>`:''}
+<h2>Low stock</h2>${lo.length?lo.map(p=>`<div class="r row"><span>${esc(p.n)}</span>${badge(p)}</div>`).join('')+'<button class="s w" onclick="tab=\'stock\';R()">View inventory</button>':'<small>Everything is well stocked.</small>'}
+<h2>Recent sales</h2>${o.ss.length?o.ss.slice(0,5).map(s=>saleRow(s,1)).join(''):'<small>No sales recorded yet today.</small>'}
+<h2>Cashflow</h2><div class="g">${C('Money in',g(o.rev),'ok')}${C('Money out',g(o.ex),'er')}</div><div class="c big" style="margin-top:10px"><small>Net</small><b>${g(o.rev-o.ex)}</b></div>`}
+function stock(){return`<div class="r"><h1>Inventory</h1><button class="sm" onclick="addP()">+ Product</button></div>`+(S.p.length?S.p.map(p=>`<div class="row"><div class="r"><b>${esc(p.n)}</b>${badge(p)}</div><small>${esc(p.c)} · cost ${g(p.cost)} · sells ${g(p.pr)} · profit ${g(p.pr-p.cost)} (${p.pr?Math.round((p.pr-p.cost)/p.pr*100):0}%)</small><div class="r" style="margin-top:8px"><button class="sm s" onclick="restock('${p.id}')">Add stock</button><button class="sm s" onclick="editP('${p.id}')">Edit prices</button></div></div>`).join(''):'<small>No products added yet.</small>')}
+function addP(){form('New product',[['n','Name'],['c','Category','text','Makeup'],['cost','Cost price (GH₵)','number'],['pr','Selling price (GH₵)','number'],['st','Starting stock','number',0],['lo','Low-stock alert at','number',5]],async v=>{if(!v.n||!(mo(v.cost)>=0)||!(mo(v.pr)>0))return'Enter a name and valid prices.';
+const cn=v.c||'Other';let ca=S.cats.find(x=>x.name.toLowerCase()==cn.toLowerCase());
+if(!ca){const r=await sb.from('categories').insert({business_id:ME.b,name:cn}).select().single();if(r.error)return r.error.message;ca=r.data}
+const{error}=await sb.from('products').insert({business_id:ME.b,category_id:ca.id,name:v.n,cost_price:mo(v.cost)/100,selling_price:mo(v.pr)/100,stock:Math.max(0,parseInt(v.st)||0),low_stock_threshold:Math.max(0,parseInt(v.lo)||0)});
+if(error)return error.message;await pull()})}
+function editP(id){const p=S.p.find(x=>x.id==id);form('Edit '+esc(p.n),[['cost','Cost price (GH₵)','number',p.cost/100],['pr','Selling price (GH₵)','number',p.pr/100],['lo','Low-stock alert at','number',p.lo]],async v=>{if(!(mo(v.cost)>=0)||!(mo(v.pr)>0))return'Invalid price.';const{error}=await sb.from('products').update({cost_price:mo(v.cost)/100,selling_price:mo(v.pr)/100,low_stock_threshold:parseInt(v.lo)||0}).eq('id',id);if(error)return error.message;await pull()})}
+function restock(id){const p=S.p.find(x=>x.id==id);form('Add stock: '+esc(p.n),[['q','Quantity added','number'],['c','Cost per unit (GH₵)','number',p.cost/100]],async v=>{const n=parseInt(v.q);if(!(n>0))return'Enter a quantity.';const{error}=await sb.rpc('restock',{p_product:id,p_qty:n,p_unit_cost:(mo(v.c)||p.cost)/100,p_supplier:null,p_note:null});if(error)return error.message;await pull()})}
+function money(){const o=st('month');return`<div class="r"><h1>Money</h1><button class="sm" onclick="addE()">+ Expense</button></div><div class="g">${C('In (month)',g(o.rev),'ok')}${C('Out (month)',g(o.ex),'er')}</div><h2>Expenses</h2>`+(S.ex.filter(e=>e.a>0).length?S.ex.filter(e=>e.a>0).sort((a,b)=>b.t-a.t).map(e=>`<div class="row"><div class="r"><b>${esc(e.cat)}</b><b>${g(e.a)}</b></div><small>${esc(e.d||'')} · ${PM[e.pm]} · ${new Date(e.t).toLocaleDateString('en-GB')}</small></div>`).join(''):'<small>No expenses recorded yet.</small>')}
+function addE(){form('New expense',[['cat','Category (Restocking, Rent, Electricity, Transport, Salary, Packaging, Marketing, Other)','text','Transport'],['a','Amount (GH₵)','number'],['d','Description'],['pm','Paid by (cash, mtn, tel, atm, card)','text','cash']],async v=>{if(!(mo(v.a)>0))return'Enter a valid amount.';
+let c=v.cat.toLowerCase();if(!EC.includes(c))c='other';let p=v.pm.toLowerCase();p=ALIAS[p]||(PM[p]?p:'cash');
+const{error}=await sb.from('expenses').insert({business_id:ME.b,category:c,amount:mo(v.a)/100,description:v.d,payment_method:p,created_by:ME.id});if(error)return error.message;
+await sb.from('notifications').insert({business_id:ME.b,type:'EXPENSE',title:'Expense recorded',body:cap(c)+' '+g(mo(v.a))+(v.d?' · '+v.d:'')});await pull()})}
+function reports(){const o=st(rng),R_=[['today','Today'],['yesterday','Yesterday'],['week','This week'],['month','This month'],['last','Last month']];const by={};S.sales.forEach(s=>{if(!s.v)by[s.by]=1});
+return`<h1>Reports</h1><div class="ch">${R_.map(x=>`<button class="${rng==x[0]?'on':''}" onclick="rng='${x[0]}';R()">${x[1]}</button>`).join('')}</div><div class="g">${C('Revenue',g(o.rev))}${C('Cost of goods',g(o.cost))}${C('Gross profit',g(o.gp),'ok')}${C('Expenses',g(o.ex))}${C('Net profit',g(o.np),o.np<0?'er':'ok')}${C('Transactions · Items',o.n+' · '+o.it)}</div>
+<h2>Payment methods</h2>${Object.keys(o.pm).length?Object.entries(o.pm).map(([k,v])=>`<div class="r row"><span>${PM[k]}</span><b>${g(v)}</b></div>`).join(''):'<small>No sales in this period.</small>'}
+<h2>Top selling</h2>${topList(o,'q',p=>p.q+' sold')}<h2>Most revenue</h2>${topList(o,'r',p=>g(p.r))}<h2>Most profit</h2>${topList(o,'g',p=>g(p.g))}
+<h2>Seller activity</h2>${Object.keys(by).map(n=>{const x=st(rng,n);return`<div class="row"><b>${esc(n)}</b><br><small>${x.n} transactions · ${g(x.rev)} recorded · ${x.it} items</small></div>`}).join('')||'<small>No activity.</small>'}`}
+function alerts(){const pc=S.cr.filter(c=>c.s=='p');return`<div class="r"><h1>Alerts</h1><button class="sm s" onclick="markAll()">Mark all read</button></div>
+${pc.map(c=>{const s=S.sales.find(x=>x.id==c.sid);return`<div class="row"><b>Correction requested</b><br><small>${esc(c.by)}: ${esc(c.why||'no reason given')}</small><div>${s.L.map(l=>l.q+' × '+esc(l.n)).join(', ')} · ${g(s.rev)}</div><div class="r" style="margin-top:8px"><button class="sm" onclick="dec('${c.id}',1)">Approve (void sale)</button><button class="sm s" onclick="dec('${c.id}',0)">Reject</button></div></div>`}).join('')}
+${S.nt.length?S.nt.map(n=>`<div class="row" onclick="markOne('${n.id}')">${n.r?'':'<span class="dot"></span>'}<b>${esc(n.ti)}</b><br>${esc(n.b)}<br><small>${tm(n.t)}</small></div>`).join(''):'<small>You’re all caught up.</small>'}<h2>Phone alerts</h2><button class="w" onclick="enablePush()">🔔 Turn on phone alerts</button><h2>Settings</h2><button class="s w" onclick="setBiz()">Business: ${esc(S.biz)}</button>`}
+async function dec(id,a){const{error}=await sb.rpc('decide_correction',{p_id:id,p_approve:!!a});if(error)alert(error.message);await pull();R()}
+async function markAll(){await sb.from('notifications').update({read:true}).eq('read',false);await pull();R()}
+async function markOne(id){await sb.from('notifications').update({read:true}).eq('id',id);await pull();R()}
+async function setBiz(){const n=prompt('Business name',S.biz);if(!n)return;const{error}=await sb.from('businesses').update({name:n}).eq('id',ME.b);if(error)alert(error.message);else S.biz=n;R()}
+/* ---------- seller ---------- */
+function sell_(){const cs=['All',...new Set(S.p.map(p=>p.c))],ps=S.p.filter(p=>(cat=='All'||p.c==cat)&&(p.n+p.c).toLowerCase().includes(q.toLowerCase())),ids=Object.keys(cart).filter(k=>cart[k]>0);
+const tot=ids.reduce((x,k)=>x+S.p.find(p=>p.id==k).pr*cart[k],0),today=st('today',ME.n);
+return`<small>Good ${new Date().getHours()<12?'morning':'day'}, ${ME.n}</small><h1>Record sale</h1><div class="g" style="margin-bottom:12px">${C('Today’s sales',g(today.rev))}${C('Items sold',today.it)}</div>
+<input id="q" placeholder="Search name or category" value="${esc(q)}" oninput="q=this.value;R(1)"><div class="ch">${cs.map(c=>`<button class="${cat==c?'on':''}" onclick="cat='${c}';R()">${c}</button>`).join('')}</div>
+${ps.map(p=>`<div class="row r"><div><b>${esc(p.n)}</b><br><small>${g(p.pr)} · ${p.st} left</small></div>${p.st?`<button class="sm" onclick="add('${p.id}')">+ Add${cart[p.id]?' ('+cart[p.id]+')':''}</button>`:'<span class="er">Out</span>'}</div>`).join('')||'<small>No products match.</small>'}
+${ids.length?`<div class="c" style="position:sticky;bottom:80px;box-shadow:0 8px 24px rgba(0,0,0,.18)">${ids.map(k=>{const p=S.p.find(x=>x.id==k);return`<div class="r" style="margin-bottom:6px"><span>${esc(p.n)}</span><span class="q"><button class="s" onclick="add('${k}',-1)">−</button>${cart[k]}<button class="s" onclick="add('${k}',1)">+</button></span></div>`}).join('')}
+<div class="ch">${Object.entries(PM).map(([k,v])=>`<button class="${pay==k?'on':''}" onclick="pay='${k}';R()">${v}</button>`).join('')}</div><button class="w" ${busy?'disabled':''} onclick="done()">Complete sale · ${g(tot)}</button></div>`:''}`}
+function add(id,d=1){const p=S.p.find(x=>x.id==id),n=(cart[id]||0)+d;if(n>p.st){alert('Only '+p.st+' of '+p.n+' left.');return}cart[id]=Math.max(0,n);R(1)}
+async function done(){if(busy)return;const items=Object.keys(cart).filter(k=>cart[k]>0).map(k=>({product_id:k,quantity:cart[k]}));if(!items.length)return;
+if(!navigator.onLine){alert('No internet. Your cart is kept. Try again when you are back online.');return}
+rid=rid||crypto.randomUUID();busy=true;R();const tot=items.reduce((x,i)=>x+S.p.find(p=>p.id==i.product_id).pr*i.quantity,0);
+const{error}=await sb.rpc('record_sale',{p_items:items,p_payment:pay,p_note:null,p_request_id:rid});busy=false;
+if(error){alert(error.message);await pull();R();return}
+rid=null;cart={};await pull();R();modal(`<h1 class="ok">✓ Sale recorded</h1><div class="c big"><small>Total</small><b>${g(tot)}</b></div><p><button class="w" onclick="this.closest('.m').remove()">Next sale</button></p>`)}
+function sales(){const m=S.sales.filter(s=>s.by==ME.n);return`<h1>My sales</h1>`+(m.length?m.map(s=>saleRow(s,0)+(s.v||S.cr.some(c=>c.sid==s.id&&c.s=='p')?'':`<div style="margin:-2px 0 10px;text-align:right"><button class="sm s" onclick="corr('${s.id}')">Request correction</button></div>`)).join(''):'<small>No sales recorded yet.</small>')}
+async function corr(id){const w=prompt('What went wrong with this sale?');if(w===null)return;const{error}=await sb.rpc('request_correction',{p_sale:id,p_items:[],p_reason:w});if(error)alert(error.message);else toast('Correction sent to the owner');await pull();R()}
+function prods(){return`<h1>Products</h1>`+S.p.map(p=>`<div class="row r"><div><b>${esc(p.n)}</b><br><small>${esc(p.c)}</small></div><div style="text-align:right"><b>${g(p.pr)}</b><br>${badge(p)}</div></div>`).join('')}
+function prof(){return`<h1>Profile</h1><div class="row"><b>${ME.n}</b><br><small>Seller</small></div><button class="s w" onclick="out()">Sign out</button>`}
+/* ---------- shell ---------- */
+function nav(){const t=role=='owner'?[['home','🏠','Home'],['stock','📦','Stock'],['money','💰','Money'],['reports','📊','Reports'],['alerts','🔔','Alerts']]:[['sell','＋','Sell'],['sales','🧾','Sales'],['prods','📦','Products'],['prof','👤','Profile']];
+const n=S.nt.filter(x=>!x.r).length;return`<div class="nav"><div>${t.map(x=>`<button class="${tab==x[0]?'on':''}" onclick="tab='${x[0]}';R()"><i>${x[1]}</i>${x[2]}${x[0]=='alerts'&&n?`<span class="bd">${n}</span>`:''}</button>`).join('')}</div></div>`}
+const V={home,stock,money,reports,alerts,sell:sell_,sales,prods,prof};
+function R(){const f=document.activeElement&&document.activeElement.id=='q',A=$('app');let h;
+if(!cfg())h=setup();else if(!ME)h=login();else if(!ready)h='<h1 class="pop" style="margin-top:80px">Loading…</h1>';else h=V[tab]()+nav();
+A.innerHTML=h;A.className=lastTab!=tab+role?'a':'';lastTab=tab+role;if(f&&$('q')){const i=$('q');i.focus();i.setSelectionRange(99,99)}}
+const VAPID='BHS9rRwz8gHZeOp_43z_r6OOxgio2otXkQLatSgEih1ZzQlCevN324IE41TByIOQJKv9ioSNvmF2v_5tlZ5Zgys';
+const u8=b=>{const p='='.repeat((4-b.length%4)%4),r=atob((b+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(r,c=>c.charCodeAt(0))};
+async function enablePush(){if(!('serviceWorker' in navigator)||!('PushManager' in window)){alert('On iPhone: tap Share, then Add to Home Screen, then open ShopTrack from your home screen and try again.');return}
+const pm=await Notification.requestPermission();if(pm!='granted'){alert('Notifications are blocked. Allow them for ShopTrack in your phone settings.');return}
+try{const reg=await navigator.serviceWorker.ready;const sub=(await reg.pushManager.getSubscription())||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)});const j=sub.toJSON();
+const{error}=await sb.from('push_subscriptions').upsert({user_id:ME.id,business_id:ME.b,endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth},{onConflict:'endpoint'});if(error)throw error;toast('Phone alerts are on ✅');R()}catch(e){alert('Could not turn on alerts: '+(e.message||e))}}
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+boot();
+</script></body></html>
